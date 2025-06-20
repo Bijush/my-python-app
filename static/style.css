@@ -1,0 +1,30 @@
+body {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  margin: 0; padding: 0;
+  background: #f4f4f4;
+}
+header, footer {
+  background: #004080; color: white;
+  text-align: center; padding: 15px;
+}
+main { padding: 20px; }
+.center {
+  text-align: center;
+  padding: 40px 0;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #007acc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+.question-block {
+  background: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
