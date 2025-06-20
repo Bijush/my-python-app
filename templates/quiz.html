@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+  <form method="post">
+    {% for q in questions %}
+      <div class="question-block">
+        <p><strong>{{ loop.index }}. {{ q.question }}</strong></p>
+        {% for choice in q.choices %}
+          <label>
+            <input type="radio" name="q{{ q.id }}" value="{{ choice }}" required>
+            {{ choice }}
+          </label><br>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn">জমা দিন</button>
+  </form>
+{% endblock %}

@@ -1,1 +1,7 @@
-
+{% extends "layout.html" %}
+{% block content %}
+  <div class="center">
+    <h2>সর্বমোট {{ total }} প্রশ্ন</h2>
+    <a href="{{ url_for('quiz') }}" class="btn">কুইজ শুরু করুন</a>
+  </div>
+{% endblock %}
