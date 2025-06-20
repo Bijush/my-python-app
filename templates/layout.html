@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Quiz Website</title>
+  <meta charset="utf-8">
+  <title>Expense Tracker</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='chart.min.js') }}"></script>
 </head>
 <body>
-  <header>
-    <h1>Quiz Website</h1>
-  </header>
-  <main>
-    {% block content %}{% endblock %}
-  </main>
-  <footer>
-    <p>&copy; 2025 My Quiz App</p>
-  </footer>
+  <header><h1>💰 Expense Tracker</h1></header>
+  <nav>
+    <a href="{{ url_for('index') }}">Home</a> |
+    <a href="{{ url_for('report') }}">Report</a>
+  </nav>
+  <main>{% block content %}{% endblock %}</main>
 </body>
 </html>
