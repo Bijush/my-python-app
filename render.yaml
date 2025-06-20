@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: my-python-app       # change to whatever you like
+    name: quiz-app
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
