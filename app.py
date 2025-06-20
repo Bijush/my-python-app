@@ -8,8 +8,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///expenses.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
-@app.before_first_request
-def create_tables():
+# Create tables on startup
+with app.app_context():
     db.create_all()
 
 @app.route('/', methods=['GET', 'POST'])
@@ -28,10 +28,14 @@ def index():
 
 @app.route('/report')
 def report():
-    data = db.session.query(Expense.category, db.func.sum(Expense.amount)).group_by(Expense.category).all()
+    data = db.session.query(
+        Expense.category, db.func.sum(Expense.amount)
+    ).group_by(Expense.category).all()
     labels = [row[0] for row in data]
     values = [row[1] for row in data]
-    return render_template('report.html', labels=json.dumps(labels), values=json.dumps(values))
+    return render_template(
+        'report.html', labels=json.dumps(labels), values=json.dumps(values)
+    )
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000, debug=True)
