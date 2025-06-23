@@ -1,20 +1,14 @@
-{% extends "layout.html" %}
-{% block content %}
-  <h2>Add Expense</h2>
-  <form method="post">
-    <input type="date" name="date" required>
-    <input type="text" name="category" placeholder="Category" required>
-    <input type="number" step="0.01" name="amount" placeholder="Amount" required>
-    <input type="text" name="description" placeholder="Description">
-    <button type="submit">Add</button>
-  </form>
-  <h2>All Expenses (Total: {{ total }})</h2>
-  <table>
-    <tr><th>Date</th><th>Category</th><th>Amount</th><th>Description</th></tr>
-    {% for e in expenses %}
-    <tr>
-      <td>{{ e.date }}</td><td>{{ e.category }}</td><td>{{ e.amount }}</td><td>{{ e.description }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head><title>Math Solver</title></head>
+<body>
+<h2>Math Solver</h2>
+<form method="POST">
+  <input type="text" name="equation" placeholder="Enter equation (e.g., x^2+2x+1=0)" style="width:300px" required>
+  <input type="submit" value="Solve">
+</form>
+<p>{{ steps|safe }}</p>
+<p><strong>{{ result }}</strong></p>
+<a href="/graph">Graph Expression</a>
+</body>
+</html>
