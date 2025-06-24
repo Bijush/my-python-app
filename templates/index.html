@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head><title>Math Solver</title></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Equation Solver</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            padding: 10px 15px;
+            font-size: 16px;
+        }
+        .result {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+    <!-- ✅ MathJax Script -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head>
 <body>
-<h2>Math Solver</h2>
-<form method="POST">
-  <input type="text" name="equation" placeholder="Enter equation (e.g., x^2+2x+1=0)" style="width:300px" required>
-  <input type="submit" value="Solve">
-</form>
-<p>{{ steps|safe }}</p>
-<p><strong>{{ result }}</strong></p>
-<a href="/graph">Graph Expression</a>
+    <h1>Equation Solver</h1>
+    <form method="POST">
+        <label for="equation">Enter Equation:</label><br>
+        <input type="text" id="equation" name="equation" required placeholder="e.g. x**2 - 3*x + 2 = 0">
+        <input type="submit" value="Solve">
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <h3>{{ result }}</h3>
+        <p>{{ steps|safe }}</p>
+    </div>
+    {% endif %}
 </body>
 </html>
