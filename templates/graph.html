@@ -1,16 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head><title>Graph Plotter</title></head>
-<body>
-<h2>Graph Plotter</h2>
-<form method="POST">
-  <input type="text" name="expression" placeholder="Enter expression (e.g., x^2+2x+1)" style="width:300px" required>
-  <input type="submit" value="Plot">
-</form>
-<p>{{ message }}</p>
-{% if image %}
-  <img src="/{{ image }}" alt="Graph" width="500">
-{% endif %}
-<a href="/">Back to Solver</a>
-</body>
-</html>
+from sympy import latex
+
+@app.route('/graph', methods=['GET', 'POST'])
+def graph():
+    message = ''
+    filename = ''
+    latex_expr = ''
+    if request.method == 'POST':
+        expr = request.form['expression']
+        x = symbols('x')
+        try:
+            y_expr = sympify(expr)
+            latex_expr = latex(y_expr)  # For MathJax rendering
+
+            f = lambda val: float(y_expr.evalf(subs={x: val}))
+            x_vals = np.linspace(-10, 10, 400)
+            y_vals = [f(val) for val in x_vals]
+
+            plt.figure()
+            plt.plot(x_vals, y_vals, label=f"y = {expr}")
+            plt.xlabel('x')
+            plt.ylabel('y')
+            plt.title('Graph')
+            plt.grid(True)
+            plt.legend()
+            filename = 'static/graph.png'
+            os.makedirs('static', exist_ok=True)
+            plt.savefig(filename)
+            plt.close()
+        except Exception as e:
+            message = f"Graph Error: {str(e)}"
+    return render_template('graph.html', image=filename, message=message, expression_latex=latex_expr)
