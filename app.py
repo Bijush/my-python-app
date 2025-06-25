@@ -23,7 +23,7 @@ def index():
             sol = solve(eq, x)
 
             if sol:
-                result = "Solutions:<br>" + "<br>".join([f"\\[ x = {latex(s)} \\" for s in sol])
+                result = "Solutions:<br>" + "<br>".join([f"\\[ x = {latex(s)} \\]" for s in sol])
             else:
                 result = "No real solution found."
 
@@ -78,7 +78,7 @@ def graph():
         except Exception as e:
             message = f"Graph Error: {str(e)}"
 
-    root_str = ", ".join([f"x = {r}" for r in roots]) if roots else "No real roots found"
+    root_str = "<br>".join([f"\\[ x = {latex(r)} \\]" for r in roots]) if roots else "No real roots found"
 
     return render_template('graph.html',
                            image=filename,
