@@ -1,58 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Equation Solver</title>
+    <meta charset="UTF-8">
     <style>
-        body {
-            font-family: sans-serif;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            width: 300px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        input[type="submit"] {
-            padding: 10px 15px;
-            font-size: 16px;
-        }
-        .result {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+        body { font-family: sans-serif; margin: 20px; }
+        input[type="text"] { width: 80%; padding: 8px; }
+        button { padding: 8px 16px; margin-left: 10px; }
+        .box { background: #f8f8f8; padding: 15px; border-radius: 10px; margin-top: 20px; }
     </style>
-    <!-- ✅ MathJax Script -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
-
-
-    
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <h1>Equation Solver</h1>
-    <form method="POST">
-        <label for="equation">Enter Equation:</label><br>
-        <input type="text" id="equation" name="equation" required placeholder="e.g. x**2 - 3*x + 2 = 0">
-        <input type="submit" value="Solve">
+    <form method="post">
+        <label>Enter Equation:</label><br>
+        <input type="text" name="equation" placeholder="e.g. x**2 - 3*x + 2 = 0" required>
+        <button type="submit">Solve</button>
     </form>
-<hr>
-<h3>Want to graph a function?</h3>
-<a href="/graph"><button>Go to Graphing Tool</button></a>
 
     {% if result %}
-    <div class="result">
-        <h3>{{ result }}</h3>
-        <p>{{ steps|safe }}</p>
+    <div class="box">
+        {{ result|safe }}
+        <br><br>
+        {{ steps|safe }}
     </div>
     {% endif %}
+
+    <hr>
+    <a href="/graph"><button>Go to Graph Plotter</button></a>
 </body>
 </html>

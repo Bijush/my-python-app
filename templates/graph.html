@@ -1,32 +1,43 @@
-from sympy import latex
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graph Plotter</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        input[type="text"] { width: 80%; padding: 8px; }
+        button { padding: 8px 16px; margin-left: 10px; }
+        img { margin-top: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .box { background: #f8f8f8; padding: 15px; border-radius: 10px; margin-top: 20px; }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <h1>Graph Plotter</h1>
+    <form method="post">
+        <label>Enter Expression (e.g. x**2 - 4):</label><br>
+        <input type="text" name="expression" placeholder="e.g. x**2 - 4" required>
+        <button type="submit">Plot</button>
+    </form>
 
-@app.route('/graph', methods=['GET', 'POST'])
-def graph():
-    message = ''
-    filename = ''
-    latex_expr = ''
-    if request.method == 'POST':
-        expr = request.form['expression']
-        x = symbols('x')
-        try:
-            y_expr = sympify(expr)
-            latex_expr = latex(y_expr)  # For MathJax rendering
+    {% if expression_latex %}
+    <div class="box">
+        <p>\[ y = {{ expression_latex }} \]</p>
+        <p><strong>Roots:</strong> {{ roots }}</p>
+    </div>
+    {% endif %}
 
-            f = lambda val: float(y_expr.evalf(subs={x: val}))
-            x_vals = np.linspace(-10, 10, 400)
-            y_vals = [f(val) for val in x_vals]
+    {% if image %}
+    <img src="{{ image }}" width="600" alt="Graph">
+    {% endif %}
 
-            plt.figure()
-            plt.plot(x_vals, y_vals, label=f"y = {expr}")
-            plt.xlabel('x')
-            plt.ylabel('y')
-            plt.title('Graph')
-            plt.grid(True)
-            plt.legend()
-            filename = 'static/graph.png'
-            os.makedirs('static', exist_ok=True)
-            plt.savefig(filename)
-            plt.close()
-        except Exception as e:
-            message = f"Graph Error: {str(e)}"
-    return render_template('graph.html', image=filename, message=message, expression_latex=latex_expr)
+    {% if message %}
+    <p style="color:red;">{{ message }}</p>
+    {% endif %}
+
+    <hr>
+    <a href="/"><button>Back to Equation Solver</button></a>
+</body>
+</html>
