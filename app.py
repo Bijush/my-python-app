@@ -21,13 +21,17 @@ def index():
                 eq = Eq(sympify(equation), 0)
 
             sol = solve(eq, x)
+
             if sol:
-                result = "Solution: " + ", ".join([f"x = {s}" for s in sol])
+                result = "Solutions:<br>" + "<br>".join([f"\\[ x = {latex(s)} \\" for s in sol])
             else:
                 result = "No real solution found."
-            steps = f"Simplified Equation:<br>\\[{latex(eq)}\\]"
+
+            steps = f"Simplified Equation:<br>\\[ {latex(eq)} \\]"
+
         except Exception as e:
             result = f"Error: {str(e)}"
+
     return render_template('index.html', result=result, steps=steps)
 
 @app.route('/graph', methods=['GET', 'POST'])
@@ -63,7 +67,7 @@ def graph():
 
             for r in roots:
                 if r.is_real:
-                    plt.plot(float(r), 0, 'ro')  # Red dot on real root
+                    plt.plot(float(r), 0, 'ro')
 
             plt.legend()
             filename = 'static/graph.png'
