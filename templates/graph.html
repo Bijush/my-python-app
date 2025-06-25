@@ -25,7 +25,8 @@
     {% if expression_latex %}
     <div class="box">
         <p>\[ y = {{ expression_latex }} \]</p>
-        <p><strong>Roots:</strong> {{ roots }}</p>
+    <p><strong>Roots:</strong><br> {{ roots|safe }}</p>
+
     </div>
     {% endif %}
 
